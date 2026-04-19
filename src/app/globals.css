@@ -1,43 +1,78 @@
 @import "tailwindcss";
 
 @theme {
+  /* Fonts */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-title: var(--font-bebas), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-bebas), ui-sans-serif, system-ui, sans-serif;
   
+  /* Core Colors */
   --color-primary: hsl(0 80% 50%);
-  --color-primary-dark: hsl(0 80% 40%);
+  --color-primary-foreground: hsl(0 0% 100%);
   --color-secondary: hsl(45 100% 50%);
-  --color-background: hsl(0 0% 98%);
+  --color-secondary-foreground: hsl(0 0% 10%);
+  --color-background: hsl(0 0% 100%);
   --color-foreground: hsl(0 0% 10%);
-  --color-accent: hsl(0 70% 95%);
   
+  /* UI Colors */
+  --color-muted: hsl(0 0% 96%);
+  --color-muted-foreground: hsl(0 0% 45%);
+  --color-accent: hsl(0 80% 95%);
+  --color-accent-foreground: hsl(0 80% 30%);
+  --color-destructive: hsl(0 84% 60%);
+  --color-destructive-foreground: hsl(0 0% 98%);
+  --color-success: hsl(142 76% 36%);
+  --color-success-foreground: hsl(0 0% 98%);
+  --color-border: hsl(0 0% 92%);
+  --color-input: hsl(0 0% 92%);
+  --color-card: hsl(0 0% 100%);
+  --color-card-foreground: hsl(0 0% 10%);
+  --color-ring: hsl(0 80% 50%);
+  
+  /* Custom Demaciao Colors */
   --color-demaciao-red: #E61E25;
   --color-demaciao-yellow: #FFD100;
   --color-demaciao-dark: #0f0a0a;
-  --color-demaciao-dark-card: #1A1818;
 
+  /* Animations */
   @keyframes pulse-glow {
     0%, 100% { opacity: 1; filter: drop-shadow(0 0 5px var(--color-primary)); }
     50% { opacity: 0.8; filter: drop-shadow(0 0 15px var(--color-primary)); }
   }
-
   @keyframes slide-in {
     from { transform: translateX(100%); }
     to { transform: translateX(0); }
   }
-
   --animate-pulse-glow: pulse-glow 2s ease-in-out infinite;
   --animate-slide-in: slide-in 0.3s ease-out;
 }
 
 :root {
-  --background: hsl(0 0% 98%);
-  --foreground: hsl(0 0% 10%);
+  --background: 0 0% 100%;
+  --foreground: 0 0% 10%;
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 10%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 10%;
+  --primary: 0 80% 50%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 45 100% 50%;
+  --secondary-foreground: 0 0% 10%;
+  --muted: 0 0% 96%;
+  --muted-foreground: 0 0% 45%;
+  --accent: 0 80% 95%;
+  --accent-foreground: 0 80% 30%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 0 0% 92%;
+  --input: 0 0% 92%;
+  --ring: 0 80% 50%;
+  --radius: 0.75rem;
 }
 
 body {
-  background-color: var(--background);
-  color: var(--foreground);
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: var(--font-sans);
 }
 
 @layer utilities {
@@ -46,23 +81,15 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-
-  .glow-red {
-    box-shadow: 0 0 20px rgba(230, 30, 37, 0.3);
-  }
-
   .glow-yellow {
-    box-shadow: 0 0 20px rgba(255, 209, 0, 0.3);
+    box-shadow: 0 10px 25px -5px rgba(255, 209, 0, 0.4);
   }
-
-  .glass-card {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+  .combo-card {
+    background: white;
+    border: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
   }
-
-  .heading-glow {
-    text-shadow: 0 0 15px rgba(230, 30, 37, 0.5);
+  .combo-card:hover {
+    box-shadow: 0 12px 40px rgba(0,0,0,0.08);
   }
 }

@@ -18,6 +18,8 @@ export const metadata: Metadata = {
   description: "¡Que el AMOR y la PIZZA nunca falten!",
 };
 
+import { AppProvider } from "@/context/AppContext";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -32,7 +34,9 @@ export default function RootLayout({
         className="min-h-full flex flex-col font-sans bg-demaciao-dark"
         suppressHydrationWarning
       >
-        {children}
+        <AppProvider>
+          {children}
+        </AppProvider>
       </body>
     </html>
   );

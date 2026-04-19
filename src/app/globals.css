@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-title: var(--font-bebas), ui-sans-serif, system-ui, sans-serif;
+  
+  --color-primary: hsl(0 80% 50%);
+  --color-primary-dark: hsl(0 80% 40%);
+  --color-secondary: hsl(45 100% 50%);
+  --color-background: hsl(0 0% 98%);
+  --color-foreground: hsl(0 0% 10%);
+  --color-accent: hsl(0 70% 95%);
+  
+  --color-demaciao-red: #E61E25;
+  --color-demaciao-yellow: #FFD100;
+  --color-demaciao-dark: #0f0a0a;
+  --color-demaciao-dark-card: #1A1818;
+
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 1; filter: drop-shadow(0 0 5px var(--color-primary)); }
+    50% { opacity: 0.8; filter: drop-shadow(0 0 15px var(--color-primary)); }
+  }
+
+  @keyframes slide-in {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+  }
+
+  --animate-pulse-glow: pulse-glow 2s ease-in-out infinite;
+  --animate-slide-in: slide-in 0.3s ease-out;
+}
+
+:root {
+  --background: hsl(0 0% 98%);
+  --foreground: hsl(0 0% 10%);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(to right, var(--color-demaciao-red), var(--color-demaciao-yellow));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .glow-red {
+    box-shadow: 0 0 20px rgba(230, 30, 37, 0.3);
+  }
+
+  .glow-yellow {
+    box-shadow: 0 0 20px rgba(255, 209, 0, 0.3);
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+  }
+
+  .heading-glow {
+    text-shadow: 0 0 15px rgba(230, 30, 37, 0.5);
+  }
+}

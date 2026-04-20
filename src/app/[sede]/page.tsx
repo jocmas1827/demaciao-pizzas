@@ -1,27 +1,36 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronDown, MapPin, Star, Flame } from 'lucide-react';
-import { useApp } from '@/context/AppContext';
-import { categoryOrder, categoryLabels } from '@/data/menuData';
+import { useCartStore } from '@/store/cartStore';
+import { PIZZAS, COMBOS, categoryOrder, categoryLabels } from '@/data/menuData';
 import MenuCategory from '@/components/MenuCategory';
 import OtherMenuSections from '@/components/OtherMenuSections';
 import CategoryNavigation from '@/components/CategoryNavigation';
 
 const heroPizza = "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=2070&auto=format&fit=crop";
 
+const SEDE_NAMES: Record<string, string> = {
+  'aviadores': 'Parque Los Aviadores',
+  'unicentro': 'Unicentro Maracay',
+  'turmero': 'Turmero',
+  'samanes1': 'Los Samanes 1',
+  'samanes2': 'Los Samanes 2',
+  'bosque': 'El Bosque',
+};
+
 const SedePage: React.FC = () => {
-  const { menuItems, currentSede, currentSedeId } = useApp();
+  const currentSedeId = useCartStore(state => state.sede);
   const menuRef = useRef<HTMLDivElement>(null);
+
+  // Combine items manually to avoid context issues
+  const allMenuItems = useMemo(() => [...PIZZAS, ...COMBOS], []);
+  const currentSedeName = SEDE_NAMES[currentSedeId || ''] || 'Nuestra Sede';
 
   const scrollToMenu = () => {
     menuRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
-
-  if (!currentSedeId || !currentSede) {
-    return null;
-  }
 
   return (
     <div className="relative bg-demaciao-dark">
@@ -110,7 +119,7 @@ const SedePage: React.FC = () => {
                 </div>
                 <div className="text-left">
                   <p className="text-[10px] uppercase tracking-widest text-white/50 font-black">Tu Sede</p>
-                  <p className="text-lg font-title tracking-wide">{currentSede.name}</p>
+                  <p className="text-lg font-title tracking-wide">{currentSedeName}</p>
                 </div>
               </motion.div>
             </div>
@@ -145,7 +154,7 @@ const SedePage: React.FC = () => {
           {categoryOrder.map((catId) => {
             if (['pastas', 'hamburguesas', 'postres', 'calzones'].includes(catId)) return null;
             
-            const items = menuItems.filter(i => i.category === catId);
+            const items = allMenuItems.filter(i => i.category === catId);
             return (
               <MenuCategory 
                 key={catId}

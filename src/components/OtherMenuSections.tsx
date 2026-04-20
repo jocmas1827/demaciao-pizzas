@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { useCartStore } from '@/store/cartStore';
-import { useApp } from '@/context/AppContext';
 import { MenuItem } from '@/types/menu';
 
 // Helper to render the cards matching the screenshot
@@ -96,14 +95,17 @@ function DessertCard({ item }: { item: MenuItem }) {
   );
 }
 
-export default function OtherMenuSections() {
-  const { menuItems } = useApp();
+import { PIZZAS, CALZONES, PASTAS, HAMBURGUESAS, COMBOS } from '@/data/menuData';
 
-  const calzones = menuItems.filter(i => i.category === 'calzones');
-  const pastas = menuItems.filter(i => i.category === 'pastas');
-  const pastichos = menuItems.filter(i => i.name.toLowerCase().includes('pasticho'));
-  const ensaladas = menuItems.filter(i => i.category === 'ensaladas');
-  const postres = menuItems.filter(i => i.category === 'postres');
+// Combine items once
+const ALL_MENU_ITEMS = [...PIZZAS, ...CALZONES, ...PASTAS, ...HAMBURGUESAS, ...COMBOS];
+
+export default function OtherMenuSections() {
+  const calzones = ALL_MENU_ITEMS.filter(i => i.category === 'calzones');
+  const pastas = ALL_MENU_ITEMS.filter(i => i.category === 'pastas');
+  const pastichos = ALL_MENU_ITEMS.filter(i => i.name.toLowerCase().includes('pasticho'));
+  const ensaladas = ALL_MENU_ITEMS.filter(i => i.category === 'ensaladas');
+  const postres = ALL_MENU_ITEMS.filter(i => i.category === 'postres');
 
   return (
     <div className="w-full space-y-20 my-16">
